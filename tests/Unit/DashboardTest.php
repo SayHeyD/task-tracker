@@ -24,10 +24,10 @@ class DashboardTest extends TestCase
     }
 
     /** @test */
-    public function dashboard_returns_302_when_unauthenticated() {
+    public function dashboard_returns_to_login_when_unauthenticated() {
 
         $response = $this->get('/dashboard');
 
-        $response->assertStatus(302);
+        $response->assertRedirect('/login');
     }
 }
