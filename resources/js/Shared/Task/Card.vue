@@ -51,7 +51,7 @@ export default {
                     user_id: this.task.user_id,
                 }, {
                     onFinish: () => {
-                        this.isUpdateingStatus = false
+                        this.isUpdatingStatus = false
                         this.$emit('updated')
                     }
                 })
