@@ -8,9 +8,7 @@
 
     <div class="py-12">
       <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-        <div v-for="task in Tasks.data" class="bg-white overflow-hidden shadow-xl sm:rounded-lg mb-4">
-          <p v-text="task"></p>
-        </div>
+        <task-card :key="task.id" v-for="task in Tasks.data" :task="task" @updated="refreshTasks" />
         <pagination :links="Tasks.links" />
       </div>
     </div>
@@ -18,8 +16,10 @@
 </template>
 
 <script>
+import { Inertia } from '@inertiajs/inertia'
 import AppLayout from "@/Layouts/AppLayout";
 import Pagination from "@/Shared/Pagination";
+import TaskCard from "@/Shared/Task/Card";
 
 export default {
     props: {
@@ -27,7 +27,13 @@ export default {
     },
     components: {
         AppLayout,
+        TaskCard,
         Pagination,
+    },
+    methods: {
+        refreshTasks() {
+            Inertia.reload({ only: ['Tasks'] })
+        }
     }
 }
 </script>

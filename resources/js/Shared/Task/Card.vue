@@ -1,0 +1,69 @@
+<template>
+  <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg mb-4">
+    <div>
+      <div class="flex p-4">
+        <div class="flex items-center">
+          <button class="cursor-pointer" @click="toggleCompletionStatus">
+            <svg v-if="task.complete" focusable="false" data-prefix="fas" data-icon="check-circle" class="h-12 w-12 text-green-500" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M504 256c0 136.967-111.033 248-248 248S8 392.967 8 256 119.033 8 256 8s248 111.033 248 248zM227.314 387.314l184-184c6.248-6.248 6.248-16.379 0-22.627l-22.627-22.627c-6.248-6.249-16.379-6.249-22.628 0L216 308.118l-70.059-70.059c-6.248-6.248-16.379-6.248-22.628 0l-22.627 22.627c-6.248 6.248-6.248 16.379 0 22.627l104 104c6.249 6.249 16.379 6.249 22.628.001z"></path></svg>
+            <svg v-else focusable="false" data-prefix="fas" data-icon="times-circle" class="h-12 w-12 text-gray-300" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M256 8C119 8 8 119 8 256s111 248 248 248 248-111 248-248S393 8 256 8zm121.6 313.1c4.7 4.7 4.7 12.3 0 17L338 377.6c-4.7 4.7-12.3 4.7-17 0L256 312l-65.1 65.6c-4.7 4.7-12.3 4.7-17 0L134.4 338c-4.7-4.7-4.7-12.3 0-17l65.6-65-65.6-65.1c-4.7-4.7-4.7-12.3 0-17l39.6-39.6c4.7-4.7 12.3-4.7 17 0l65 65.7 65.1-65.6c4.7-4.7 12.3-4.7 17 0l39.6 39.6c4.7 4.7 4.7 12.3 0 17L312 256l65.6 65.1z"></path></svg>
+          </button>
+        </div>
+        <div class="ml-2 p-2">
+          <p class="text-xl mb-2" v-text="task.title"></p>
+          <p class="text-sm text-gray-500" v-text="task.description"></p>
+        </div>
+      </div>
+    </div>
+
+    <div v-if="!collapsed">
+      <p>Lorem ipsum</p>
+    </div>
+
+    <div>
+      <button class="w-full flex justify-center mb-2 cursor-pointer" @click="toggleCard">
+        <svg v-if="collapsed" focusable="false" data-prefix="fas" data-icon="chevron-down" class="h-4 w-8 text-gray-500" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path fill="currentColor" d="M207.029 381.476L12.686 187.132c-9.373-9.373-9.373-24.569 0-33.941l22.667-22.667c9.357-9.357 24.522-9.375 33.901-.04L224 284.505l154.745-154.021c9.379-9.335 24.544-9.317 33.901.04l22.667 22.667c9.373 9.373 9.373 24.569 0 33.941L240.971 381.476c-9.373 9.372-24.569 9.372-33.942 0z"></path></svg>
+        <svg v-else focusable="false" data-prefix="fas" data-icon="chevron-up" class="h-4 w-8 text-gray-500" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path fill="currentColor" d="M240.971 130.524l194.343 194.343c9.373 9.373 9.373 24.569 0 33.941l-22.667 22.667c-9.357 9.357-24.522 9.375-33.901.04L224 227.495 69.255 381.516c-9.379 9.335-24.544 9.317-33.901-.04l-22.667-22.667c-9.373-9.373-9.373-24.569 0-33.941L207.03 130.525c9.372-9.373 24.568-9.373 33.941-.001z"></path></svg>
+      </button>
+    </div>
+  </div>
+</template>
+
+<script>
+export default {
+    props: {
+        task: Object,
+    },
+    data() {
+        return {
+            collapsed: true,
+            isUpdatingStatus: false,
+        }
+    },
+    methods: {
+        toggleCompletionStatus() {
+            if (!this.isUpdatingStatus) {
+                this.isUpdatingStatus = true
+                this.$inertia.patch(route('tasks.update', this.task.id), {
+                    title: this.task.title,
+                    description: this.task.description,
+                    complete: !this.task.complete,
+                    due_at: this.task.due_at,
+                    user_id: this.task.user_id,
+                }, {
+                    onFinish: () => {
+                        this.isUpdateingStatus = false
+                        this.$emit('updated')
+                    }
+                })
+            }
+        },
+        toggleCard() {
+            this.collapsed = !this.collapsed;
+        }
+    }
+}
+</script>
+
+<style scoped>
+
+</style>
