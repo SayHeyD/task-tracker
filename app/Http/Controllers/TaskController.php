@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreTaskRequest;
 use App\Http\Requests\UpdateTaskRequest;
 use App\Models\Task;
 use Illuminate\Support\Facades\Auth;
@@ -34,8 +35,27 @@ class TaskController extends Controller
         return Inertia::render('Task/Create');
     }
 
-    public function store() {
+    public function store(StoreTaskRequest $request) {
+        $task = new Task();
 
+        if ($request->complete) {
+            $request->complete = true;
+        }
+        else {
+            $request->complete = false;
+        }
+
+        $task->fill([
+            'title' => $request->title,
+            'description' => $request->description,
+            'complete' => $request->complete,
+            'due_at' => $request->due_at,
+            'user_id' => Auth::id(),
+        ]);
+
+        $task->save();
+
+        return redirect()->to(route('tasks.index'))->with('success', 'The Task "'.$task->title.'" was successfully created!');
     }
 
     public function update(UpdateTaskRequest $request, Task $task) {
