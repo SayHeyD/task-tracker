@@ -47,11 +47,7 @@ export default {
             if (!this.isUpdatingStatus) {
                 this.isUpdatingStatus = true
                 this.$inertia.patch(route('tasks.update', this.task.id), {
-                    title: this.task.title,
-                    description: this.task.description,
                     complete: !this.task.complete,
-                    due_at: this.task.due_at,
-                    user_id: this.task.user_id,
                 }, {
                     onFinish: () => {
                         this.isUpdatingStatus = false
