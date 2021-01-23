@@ -7,7 +7,7 @@ import PortalVue from 'portal-vue';
 import Toast from "vue-toastification";
 import "vue-toastification/dist/index.css";
 
-let options = {
+const options = {
     position: 'bottom-right'
 }
 
