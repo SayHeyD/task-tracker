@@ -8,18 +8,23 @@
 
     <div class="py-12">
       <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-        <task-card :key="task.id" v-for="task in Tasks.data" :task="task" @updated="refreshTasks" />
+        <task-card :key="task.id" v-for="task in Tasks.data" :task="task" />
         <pagination :links="Tasks.links" />
       </div>
     </div>
+
+    <toaster :flash="this.$page.props.flash"
+             :errors="this.$page.props.errors"
+             :success-delay="2500"/>
+
   </app-layout>
 </template>
 
 <script>
-import { Inertia } from '@inertiajs/inertia'
 import AppLayout from "@/Layouts/AppLayout";
 import Pagination from "@/Shared/Pagination";
 import TaskCard from "@/Shared/Task/Card";
+import Toaster from "@/Shared/Toaster";
 
 export default {
     props: {
@@ -29,12 +34,8 @@ export default {
         AppLayout,
         TaskCard,
         Pagination,
+        Toaster,
     },
-    methods: {
-        refreshTasks() {
-            Inertia.reload({ only: ['Tasks'] })
-        }
-    }
 }
 </script>
 
