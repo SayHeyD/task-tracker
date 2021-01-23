@@ -54,6 +54,6 @@ class TaskController extends Controller
 
         $task->save();
 
-        return redirect()->back()->with('success', 'Task successfully updated.');
+        return redirect()->back()->with('success', 'Successfully updated "'.$task->title.'".');
     }
 }
