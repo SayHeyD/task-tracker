@@ -32,7 +32,8 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
    // Task routes
    Route::prefix('/tasks')->group(function () {
        Route::get('', [TaskController::class, 'index'])->name('tasks.index');
-       Route::put('', [TaskController::class, 'create'])->name('tasks.create');
+       Route::put('', [TaskController::class, 'store'])->name('tasks.store');
+       Route::get('/new', [TaskController::class, 'create'])->name('tasks.create');
        Route::get('/{task}', [TaskController::class, 'edit'])->name('tasks.edit');
        Route::patch('/{task}', [TaskController::class, 'update'])->name('tasks.update');
        Route::delete('/{task}', [TaskController::class, 'delete'])->name('tasks.delete');

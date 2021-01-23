@@ -23,11 +23,18 @@ class TaskController extends Controller
 
     }
 
-    public function delete() {
+    public function delete(Request $request, Task $task) {
 
+        $task->delete();
+
+        return redirect()->back()->with('success', 'The Task "'.$task->title.'" was successfully deleted.');
     }
 
     public function create() {
+        return Inertia::render('Task/Create');
+    }
+
+    public function store() {
 
     }
 
