@@ -1,9 +1,12 @@
 <template>
   <app-layout>
     <template #header>
-      <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-        Tasks
-      </h2>
+      <div class="flex justify-between items-center">
+        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+          Tasks
+        </h2>
+        <jet-button @click="$inertia.visit(route('tasks.create'))">New task</jet-button>
+      </div>
     </template>
 
     <div class="py-12">
@@ -25,6 +28,7 @@ import AppLayout from "@/Layouts/AppLayout";
 import Pagination from "@/Shared/Pagination";
 import TaskCard from "@/Shared/Task/Card";
 import Toaster from "@/Shared/Toaster";
+import JetButton from "@/Jetstream/Button";
 
 export default {
     props: {
@@ -35,7 +39,13 @@ export default {
         TaskCard,
         Pagination,
         Toaster,
+        JetButton,
     },
+    mounted() {
+        if (this.$page.props.flash.success) {
+            this.$toast.success(this.$page.props.flash.success)
+        }
+    }
 }
 </script>
 
