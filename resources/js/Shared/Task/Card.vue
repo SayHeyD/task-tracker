@@ -1,15 +1,18 @@
 <template>
-  <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg mb-4">
+  <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg mb-4 p-4 pb-0">
     <div>
-      <div class="flex p-4">
+      <div class="flex">
         <div class="flex items-center">
           <button class="cursor-pointer" @click="toggleCompletionStatus">
             <svg v-if="task.complete" focusable="false" data-prefix="fas" data-icon="check-circle" class="h-12 w-12 text-green-500" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M504 256c0 136.967-111.033 248-248 248S8 392.967 8 256 119.033 8 256 8s248 111.033 248 248zM227.314 387.314l184-184c6.248-6.248 6.248-16.379 0-22.627l-22.627-22.627c-6.248-6.249-16.379-6.249-22.628 0L216 308.118l-70.059-70.059c-6.248-6.248-16.379-6.248-22.628 0l-22.627 22.627c-6.248 6.248-6.248 16.379 0 22.627l104 104c6.249 6.249 16.379 6.249 22.628.001z"></path></svg>
             <svg v-else focusable="false" data-prefix="fas" data-icon="times-circle" class="h-12 w-12 text-gray-300" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M256 8C119 8 8 119 8 256s111 248 248 248 248-111 248-248S393 8 256 8zm121.6 313.1c4.7 4.7 4.7 12.3 0 17L338 377.6c-4.7 4.7-12.3 4.7-17 0L256 312l-65.1 65.6c-4.7 4.7-12.3 4.7-17 0L134.4 338c-4.7-4.7-4.7-12.3 0-17l65.6-65-65.6-65.1c-4.7-4.7-4.7-12.3 0-17l39.6-39.6c4.7-4.7 12.3-4.7 17 0l65 65.7 65.1-65.6c4.7-4.7 12.3-4.7 17 0l39.6 39.6c4.7 4.7 4.7 12.3 0 17L312 256l65.6 65.1z"></path></svg>
           </button>
         </div>
-        <div class="ml-2 p-2">
-          <p class="text-xl mb-2" v-text="task.title"></p>
+        <div class="ml-2 p-2 flex-1">
+          <p class="text-xl flex justify-between mb-2">
+            <span v-text="task.title"></span>
+            <span class="text-gray-500 text-sm inline-flex items-start">Due at: {{ task.due_at }}</span>
+          </p>
           <p class="text-sm text-gray-500" v-text="task.description"></p>
         </div>
       </div>
