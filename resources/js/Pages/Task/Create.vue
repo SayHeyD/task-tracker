@@ -21,7 +21,7 @@
             <template #form>
               <form-input id="title" class="w-full col-span-6" input-class="w-full" label="Title" type="text" :error-message="errors.title" v-model="form.title"></form-input>
               <form-input id="description" class="w-full col-span-6" input-class="w-full" label="Description" type="text" :error-message="errors.description" v-model="form.description"></form-input>
-              <form-input id="complete" label="Complete" type="checkbox" :error-message="errors.checkbox" v-model="form.checkbox"></form-input>
+              <form-input id="complete" class="col-span-6" label="Complete" type="checkbox" :error-message="errors.complete" v-model="form.complete"></form-input>
               <form-input id="due_at" class="w-full col-span-6" input-class="w-full" label="Due at" type="text" :error-message="errors.due_at" v-model="form.due_at"></form-input>
             </template>
 
