@@ -4,9 +4,16 @@ require('./bootstrap');
 import Vue from 'vue';
 import { App as InertiaApp, plugin as InertiaPlugin } from '@inertiajs/inertia-vue';
 import PortalVue from 'portal-vue';
+import Toast from "vue-toastification";
+import "vue-toastification/dist/index.css";
+
+let options = {
+    position: 'bottom-right'
+}
 
 Vue.mixin({ methods: { route } });
 Vue.use(InertiaPlugin);
+Vue.use(Toast, options);
 Vue.use(PortalVue);
 
 const app = document.getElementById('app');
