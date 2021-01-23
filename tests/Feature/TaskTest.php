@@ -78,26 +78,36 @@ class TaskTest extends TestCase
             'description' => 'Clean dishes of my neighbour',
             'complete' => true,
             'due_at' => Carbon::now(),
-            'user_id' => $user->id,
         ]);
 
         $response->assertRedirect('/tasks');
     }
 
     /** @test */
-    public function tasks_update_returns_with_title_error_when_authenticated_and_update_data_is_incorrect() {
+    public function tasks_update_returns_with_title_error_when_authenticated_and_title_to_long() {
 
-        $user = $this->authenticateUser();
+        $this->authenticateUser();
 
         $task = Task::factory()->create();
 
         $response = $this->from('/tasks')->patch('/tasks/'.$task->id, [
-            'description' => 'Clean dishes of my neighbour',
-            'complete' => true,
-            'due_at' => Carbon::now(),
-            'user_id' => $user->id,
+            'title' => 'This is a text that is longer then two hundred fifty characters so that a error should be triggered. This is a text that is longer then two hundred fifty characters so that a error should be triggered. This is a text that is longer then two hundred fifty characters so that a error should be triggered. This is a text that is longer then two hundred fifty characters so that a error should be triggered. This is a text that is longer then two hundred fifty characters so that a error should be triggered. This is a text that is longer then two hundred fifty characters so that a error should be triggered. This is a text that is longer then two hundred fifty characters so that a error should be triggered.'
         ]);
 
         $response->assertSessionHasErrors('title');
+    }
+
+    /** @test  */
+    public function tasks_update_returns_with_dua_at_error_when_authenticated_and_due_at_not_formatted_correctly() {
+
+        $this->authenticateUser();
+
+        $task = Task::factory()->create();
+
+        $response = $this->from('/tasks')->patch('/tasks/'.$task->id, [
+            'due_at' => '15.01.2021 15:45:12'
+        ]);
+
+        $response->assertSessionHasErrors('due_at');
     }
 }

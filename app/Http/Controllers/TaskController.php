@@ -33,17 +33,24 @@ class TaskController extends Controller
 
     public function update(UpdateTaskRequest $request, Task $task) {
 
-        if (!$request->complete) {
-            $request->complete = false;
+        if ($request->title) {
+            $task->title = $request->title;
         }
 
-        $task->fill([
-            'title' => $request->title,
-            'description' => $request->description,
-            'complete' => $request->complete,
-            'due_at' => $request->due_at,
-            'user_id' => $request->user_id,
-        ]);
+        if ($request->description) {
+            $task->description = $request->description;
+        }
+
+        if ($request->complete) {
+            $task->complete = true;
+        }
+        else {
+            $task->complete = false;
+        }
+
+        if ($request->due_at) {
+            $task->due_at = $request->due_at;
+        }
 
         $task->save();
 
