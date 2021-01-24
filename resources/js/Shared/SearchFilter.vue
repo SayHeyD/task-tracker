@@ -2,7 +2,7 @@
   <div class="flex items-center">
     <jet-input class="w-full" autocomplete="off" type="text" name="search" placeholder="Search for a title…" :value="value" @input="$emit('input', $event)" />
 
-    <jet-secondary-button class="ml-2" @click="$emit('reset')">Reset</jet-secondary-button>
+    <jet-secondary-button class="ml-2 py-3" @click="$emit('reset')">Reset</jet-secondary-button>
   </div>
 </template>
 
