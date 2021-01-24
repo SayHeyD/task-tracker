@@ -16,13 +16,37 @@ export default {
             Default: 5000,
         }
     },
+    mounted() {
+        if (this.flash.success) {
+            this.fireSuccessToast(this.flash.success)
+        }
+
+        if (this.errors) {
+            for (let propName in this.errors) {
+                if (this.errors.hasOwnProperty(propName)) {
+                    this.fireErrorToast(this.errors, propName)
+                }
+            }
+        }
+    },
+    methods: {
+        fireSuccessToast(message) {
+            this.$toast.success(message, {
+                timeout: this.successDelay
+            })
+            this.$page.props.flash.success = null
+        },
+        fireErrorToast(errors, propName) {
+            this.$toast.error(errors[propName], {
+                timeout: this.errorDelay
+            })
+            this.$page.props.errors[propName] = null
+        }
+    },
     watch: {
         'flash.success': function(val) {
             if (val) {
-                this.$toast.success(val, {
-                    timeout: this.successDelay
-                })
-                this.$page.props.flash.success = null
+                this.fireSuccessToast(val)
             }
         },
         errors: {
@@ -31,9 +55,7 @@ export default {
 
                 for (let propName in val) {
                     if (val.hasOwnProperty(propName)) {
-                        this.$toast.error(val[propName], {
-                            timeout: this.errorDelay
-                        })
+                        this.fireErrorToast(val, propName)
                     }
                 }
             },

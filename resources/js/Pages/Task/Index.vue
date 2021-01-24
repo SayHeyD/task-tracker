@@ -55,11 +55,6 @@ export default {
             },
         }
     },
-    mounted() {
-        if (this.$page.props.flash.success) {
-            this.$toast.success(this.$page.props.flash.success)
-        }
-    },
     watch: {
         form: {
             handler: throttle(function() {
