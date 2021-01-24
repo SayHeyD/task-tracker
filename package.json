@@ -27,6 +27,7 @@
         "vue-template-compiler": "^2.6.10"
     },
     "dependencies": {
+        "flatpickr": "^4.6.9",
         "vue-toastification": "^1.7.11"
     }
 }

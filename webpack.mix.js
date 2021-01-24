@@ -17,6 +17,7 @@ mix.js('resources/js/app.js', 'public/js').vue()
         require('tailwindcss'),
         require('autoprefixer'),
     ])
+    .css('resources/css/flatpickr_blue.css', 'public/css')
     .webpackConfig(require('./webpack.config'));
 
 if (mix.inProduction()) {
