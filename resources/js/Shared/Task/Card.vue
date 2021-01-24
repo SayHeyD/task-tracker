@@ -15,7 +15,8 @@
             <span v-if="task.due_at" class="text-gray-500 text-sm inline-flex items-start">Due at: {{ task.due_at }}</span>
             <span v-else class="text-gray-500 text-sm inline-flex items-start">No due date</span>
           </p>
-          <p class="text-sm text-gray-500" v-text="task.description"></p>
+          <p class="text-sm text-gray-500" v-if="task.description" v-text="task.description"></p>
+          <p class="text-sm italic text-gray-500" v-else>- No description</p>
         </div>
       </div>
     </div>
