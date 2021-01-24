@@ -45,7 +45,7 @@ class TaskController extends Controller
         $task->fill([
             'title' => $request->title,
             'description' => $request->description,
-            'status' => $request->complete,
+            'status' => $request->status,
             'due_at' => $request->due_at,
             'user_id' => Auth::id(),
         ]);
