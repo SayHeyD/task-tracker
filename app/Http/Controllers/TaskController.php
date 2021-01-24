@@ -15,9 +15,11 @@ class TaskController extends Controller
     public function index() {
 
         return Inertia::render('Task/Index', [
-            'Tasks' => Task::where('user_id', Auth::user()->id)->paginate(),
+            'Filters' => Request::all('search'),
+            'Tasks' => Task::where('user_id', Auth::id())
+                ->where('title', 'LIKE', '%'.Request::input('search').'%')
+                ->paginate(7),
         ]);
-
     }
 
     public function edit() {
