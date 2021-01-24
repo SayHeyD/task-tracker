@@ -78,15 +78,15 @@ class TaskTest extends TestCase
     /** @test */
     public function tasks_update_returns_redirect_back_when_authenticated_and_update_data_is_correct() {
 
-        $user = $this->authenticateUser();
+        $this->authenticateUser();
 
         $task = Task::factory()->create();
 
         $response = $this->from('/tasks')->patch('/tasks/'.$task->id, [
             'title' => 'Do dishes',
             'description' => 'Clean dishes of my neighbour',
-            'complete' => true,
-            'due_at' => Carbon::now(),
+            'status' => 'completed',
+            'due_at' => Carbon::now()->toDateTimeString(),
         ]);
 
         $response->assertRedirect('/tasks');

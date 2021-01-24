@@ -26,7 +26,7 @@ class TaskFactory extends Factory
             'title' => $this->faker->text(40),
             'description' => $this->faker->text,
             'due_at' => $this->faker->dateTimeBetween('now', '+2 years'),
-            'complete' => $this->faker->boolean,
+            'status' => $this->faker->randomElement(['open', 'failed', 'completed']),
             'user_id' => User::all()->random()->id,
         ];
     }

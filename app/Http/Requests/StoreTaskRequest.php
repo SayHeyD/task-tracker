@@ -4,6 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Validation\Rule;
 
 class StoreTaskRequest extends FormRequest
 {
@@ -27,7 +28,7 @@ class StoreTaskRequest extends FormRequest
         return [
             'title' => ['required', 'max:255'],
             'description' => ['nullable'],
-            'complete' => ['nullable'],
+            'status' => ['nullable', Rule::in(['open', 'failed', 'completed'])],
             'due_at' => ['nullable', 'date_format:Y-m-d H:i:s'],
         ];
     }

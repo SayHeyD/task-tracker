@@ -18,7 +18,7 @@ class CreateTasksTable extends Migration
             $table->string('title');
             $table->text('description')->nullable();
             $table->timestamp('due_at')->nullable();
-            $table->boolean('complete');
+            $table->enum('status', ['open', 'failed', 'completed']);
             $table->foreignId('user_id');
             $table->timestamps();
         });

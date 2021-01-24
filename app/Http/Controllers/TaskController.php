@@ -38,17 +38,14 @@ class TaskController extends Controller
     public function store(StoreTaskRequest $request) {
         $task = new Task();
 
-        if ($request->complete) {
-            $request->complete = true;
-        }
-        else {
-            $request->complete = false;
+        if (!$request->status) {
+            $request->status = 'open';
         }
 
         $task->fill([
             'title' => $request->title,
             'description' => $request->description,
-            'complete' => $request->complete,
+            'status' => $request->complete,
             'due_at' => $request->due_at,
             'user_id' => Auth::id(),
         ]);
@@ -68,11 +65,8 @@ class TaskController extends Controller
             $task->description = $request->description;
         }
 
-        if ($request->complete) {
-            $task->complete = true;
-        }
-        else {
-            $task->complete = false;
+        if ($request->status) {
+            $task->status = $request->status;
         }
 
         if ($request->due_at) {
