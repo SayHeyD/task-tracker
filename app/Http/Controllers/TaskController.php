@@ -22,8 +22,10 @@ class TaskController extends Controller
         ]);
     }
 
-    public function edit() {
-
+    public function edit(Request $request, Task $task) {
+        return Inertia::render('Task/Edit', [
+            'task' => $task
+        ]);
     }
 
     public function delete(Request $request, Task $task) {
@@ -76,6 +78,10 @@ class TaskController extends Controller
         }
 
         $task->save();
+
+        if ($request->url() == route('tasks.edit', $task->id)) {
+            return redirect()->to(route('tasks.index'))->with('success', 'Successfully updated "'.$task->title.'".');
+        }
 
         return redirect()->back()->with('success', 'Successfully updated "'.$task->title.'".');
     }
