@@ -26,7 +26,7 @@ The web-root must be set to the ```public/``` folder.
 
 Generate .env file from template: ```cp .env.example .env```
 
-Then fill out all values in the .env file.
+Then fill out all values in the .env file. Don't forget to set ```APP_ENV``` to ```production```
 
 Download composer packages: ```composer install```
 
