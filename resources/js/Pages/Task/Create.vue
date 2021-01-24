@@ -21,7 +21,11 @@
             <template #form>
               <form-input id="title" class="w-full col-span-6" input-class="w-full" label="Title" type="text" :error-message="errors.title" v-model="form.title"></form-input>
               <form-input id="description" class="w-full col-span-6" input-class="w-full" label="Description" type="text" :error-message="errors.description" v-model="form.description"></form-input>
-              <form-input id="complete" class="col-span-6" label="Complete" type="checkbox" :error-message="errors.complete" v-model="form.complete"></form-input>
+              <select-input id="status" name="status" label="Status" class="w-full col-span-6" v-model="form.status">
+                <option value="open" selected="selected">Open</option>
+                <option value="completed">Completed</option>
+                <option value="failed">Failed</option>
+              </select-input>
               <form-input id="due_at" class="w-full col-span-6" input-class="w-full" label="Due at" type="text" :error-message="errors.due_at" v-model="form.due_at"></form-input>
             </template>
 
@@ -43,6 +47,7 @@
 import AppLayout from "@/Layouts/AppLayout";
 import FormSection from "@/Jetstream/FormSection";
 import FormInput from "@/Shared/Form/FormInput";
+import SelectInput from "@/Shared/Form/SelectInput";
 import JetButton from "@/Jetstream/Button"
 
 export default {
@@ -51,6 +56,7 @@ export default {
         FormSection,
         FormInput,
         JetButton,
+        SelectInput,
     },
     props: {
         errors: Object,
@@ -61,7 +67,7 @@ export default {
             form: {
                 title: null,
                 description: null,
-                complete: null,
+                status: null,
                 due_at: null,
             }
         }
