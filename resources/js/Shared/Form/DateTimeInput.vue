@@ -18,26 +18,30 @@ import flatpickr from "flatpickr";
 require('/css/flatpickr_blue.css')
 
 export default {
-    props: ['id', 'value', 'label', 'name', 'errorMessage'],
+    props: ['id', 'value', 'label', 'name', 'errorMessage', 'submitting'],
     components: {
         JetLabel,
         JetInputError,
     },
     data() {
         return {
+            pickr: null,
             options: {
                 inline: true,
                 dateFormat: 'Y-m-d H:i:s',
                 enableTime: true,
                 time_24hr: true,
-            }
+            },
+            enter: new KeyboardEvent('keydown', {
+                key : "Enter"
+            })
         }
     },
     mounted() {
         this.date = this.value
 
-        let pickr = flatpickr(this.$refs.flatpickr, this.options);
-        pickr.config.onChange.push(this.emitInput);
+        this.pickr = flatpickr(this.$refs.flatpickr, this.options);
+        this.pickr.config.onChange.push(this.emitInput);
     },
     methods: {
         emitInput(val) {
@@ -66,5 +70,13 @@ export default {
             this.$emit('input', date.getFullYear() + '-' + month + '-' + day + ' ' + hour + ':' + minute + ':00')
         }
     },
+    watch: {
+        submitting(val) {
+            if (val === true) {
+                console.log('YAY')
+                this.pickr._input.dispatchEvent(this.enter)
+            }
+        }
+    }
 }
 </script>

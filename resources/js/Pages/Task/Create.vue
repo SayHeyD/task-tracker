@@ -33,7 +33,7 @@
                   <svg :class="[form.status === 'open' ? 'text-gray-500 scale-110' : 'text-gray-300']" class="w-12 h-12 transition transform duration-250" viewBox="0 0 512 512" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill="currentColor" d="M256 8C119 8 8 119 8 256C8 393 119 504 256 504C393 504 504 393 504 256C504 119 393 8 256 8Z"/><path fill="white" d="M173.9 377.6C178.6 382.3 186.2 382.3 190.9 377.6L377.7 191C382.4 186.3 382.4 178.7 377.7 174L338.1 134.4C333.4 129.7 325.8 129.7 321.1 134.4L134.4 321C129.7 325.7 129.7 333.3 134.4 338L173.9 377.6Z"/></svg>
                 </button>
               </div>
-              <date-time-input id="due_at" label="Due at" name="due_at" :error-message="errors.due_at" class="w-full col-span-6" v-model="form.due_at"></date-time-input>
+              <date-time-input id="due_at" label="Due at" name="due_at" :error-message="errors.due_at" class="w-full col-span-6" :submitting="sending" v-model="form.due_at"></date-time-input>
             </template>
 
             <template #actions>
