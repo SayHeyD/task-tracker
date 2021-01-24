@@ -15,32 +15,41 @@
             <span v-if="task.due_at" class="text-gray-500 text-sm inline-flex items-start">Due at: {{ task.due_at }}</span>
             <span v-else class="text-gray-500 text-sm inline-flex items-start">No due date</span>
           </p>
-          <p class="text-sm text-gray-500" v-if="task.description" v-text="task.description"></p>
-          <p class="text-sm italic text-gray-500" v-else>- No description</p>
+          <div :class="{'invisible': !collapsed}">
+            <p class="text-sm text-gray-500" v-if="task.description" v-text="task.description"></p>
+            <p class="text-sm italic text-gray-500" v-else>- No description</p>
+          </div>
         </div>
       </div>
     </div>
 
-    <div v-if="!collapsed">
-      <p>Lorem ipsum</p>
-      <delete-button @confirmed="deleteTask">
-        <template #button>Delete</template>
-        <template #title>Confirm action</template>
-        <template #message>Are you sure you want to permanently delete "{{ task.title }}"?</template>
-      </delete-button>
+    <div v-if="!collapsed" class="mt-2">
+      <div>
+        <p v-if="task.description" v-text="task.description"></p>
+        <p class="italic" v-else>- No description</p>
+      </div>
+
+      <div class="w-full flex justify-end mt-2">
+        <secondary-button class="mr-2" @click="$inertia.visit(route('tasks.edit', task.id))">Editieren</secondary-button>
+
+        <delete-button @confirmed="deleteTask">
+          <template #button>Delete</template>
+          <template #title>Confirm action</template>
+          <template #message>Are you sure you want to permanently delete "{{ task.title }}"?</template>
+        </delete-button>
+      </div>
     </div>
 
-    <div>
-      <button class="w-full flex justify-center mb-2 cursor-pointer" @click="toggleCard">
-        <svg v-if="collapsed" focusable="false" data-prefix="fas" data-icon="chevron-down" class="h-4 w-8 text-gray-500" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path fill="currentColor" d="M207.029 381.476L12.686 187.132c-9.373-9.373-9.373-24.569 0-33.941l22.667-22.667c9.357-9.357 24.522-9.375 33.901-.04L224 284.505l154.745-154.021c9.379-9.335 24.544-9.317 33.901.04l22.667 22.667c9.373 9.373 9.373 24.569 0 33.941L240.971 381.476c-9.373 9.372-24.569 9.372-33.942 0z"></path></svg>
-        <svg v-else focusable="false" data-prefix="fas" data-icon="chevron-up" class="h-4 w-8 text-gray-500" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path fill="currentColor" d="M240.971 130.524l194.343 194.343c9.373 9.373 9.373 24.569 0 33.941l-22.667 22.667c-9.357 9.357-24.522 9.375-33.901.04L224 227.495 69.255 381.516c-9.379 9.335-24.544 9.317-33.901-.04l-22.667-22.667c-9.373-9.373-9.373-24.569 0-33.941L207.03 130.525c9.372-9.373 24.568-9.373 33.941-.001z"></path></svg>
-      </button>
-    </div>
+    <button class="w-full flex justify-center mt-2 focus:outline-none cursor-pointer pb-1" @click="toggleCard">
+      <svg v-if="collapsed" focusable="false" data-prefix="fas" data-icon="chevron-down" class="h-4 w-8 text-gray-500" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path fill="currentColor" d="M207.029 381.476L12.686 187.132c-9.373-9.373-9.373-24.569 0-33.941l22.667-22.667c9.357-9.357 24.522-9.375 33.901-.04L224 284.505l154.745-154.021c9.379-9.335 24.544-9.317 33.901.04l22.667 22.667c9.373 9.373 9.373 24.569 0 33.941L240.971 381.476c-9.373 9.372-24.569 9.372-33.942 0z"></path></svg>
+      <svg v-else focusable="false" data-prefix="fas" data-icon="chevron-up" class="h-4 w-8 text-gray-500" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path fill="currentColor" d="M240.971 130.524l194.343 194.343c9.373 9.373 9.373 24.569 0 33.941l-22.667 22.667c-9.357 9.357-24.522 9.375-33.901.04L224 227.495 69.255 381.516c-9.379 9.335-24.544 9.317-33.901-.04l-22.667-22.667c-9.373-9.373-9.373-24.569 0-33.941L207.03 130.525c9.372-9.373 24.568-9.373 33.941-.001z"></path></svg>
+    </button>
   </div>
 </template>
 
 <script>
 import DeleteButton from "@/Shared/DeleteButton";
+import SecondaryButton from "@/Jetstream/SecondaryButton";
 
 export default {
     props: {
@@ -48,6 +57,7 @@ export default {
     },
     components: {
         DeleteButton,
+        SecondaryButton,
     },
     data() {
         return {
