@@ -121,6 +121,19 @@ class TaskTest extends TestCase
     }
 
     /** @test */
+    public function tasks_update_returns_to_index_page_when_request_is_valid_and_comes_from_edit_page() {
+        $this->authenticateUser();
+
+        $task = Task::factory()->create();
+
+        $response = $this->from('tasks/'.$task->id)->patch('tasks/'.$task->id, [
+            'status' => 'open'
+        ]);
+
+        $response->assertRedirect('/tasks');
+    }
+
+    /** @test */
     public function tasks_create_page_returns_200_when_authenticated() {
 
         $this->authenticateUser();
