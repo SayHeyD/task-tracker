@@ -42,7 +42,7 @@
 <script>
 import AppLayout from "@/Layouts/AppLayout";
 import FormSection from "@/Jetstream/FormSection";
-import FormInput from "@/Shared/FormInput";
+import FormInput from "@/Shared/Form/FormInput";
 import JetButton from "@/Jetstream/Button"
 
 export default {
