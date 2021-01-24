@@ -7,7 +7,7 @@ use App\Models\User;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 
-class TaskTest extends TestCase
+class TaskModelTest extends TestCase
 {
     use DatabaseTransactions;
 

@@ -7,7 +7,7 @@ use App\Models\User;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 
-class UserTest extends TestCase
+class UserModelTest extends TestCase
 {
     private function createUserWithTasks() {
         $user = User::factory()->create();
