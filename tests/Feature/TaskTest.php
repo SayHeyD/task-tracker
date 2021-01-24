@@ -93,7 +93,7 @@ class TaskTest extends TestCase
     }
 
     /** @test */
-    public function tasks_update_returns_with_title_error_when_authenticated_and_title_to_long() {
+    public function tasks_update_returns_with_title_error_when_authenticated_and_title_too_long() {
 
         $this->authenticateUser();
 
@@ -107,7 +107,7 @@ class TaskTest extends TestCase
     }
 
     /** @test  */
-    public function tasks_update_returns_with_dua_at_error_when_authenticated_and_due_at_not_formatted_correctly() {
+    public function tasks_update_returns_with_due_at_error_when_authenticated_and_due_at_not_formatted_correctly() {
 
         $this->authenticateUser();
 
