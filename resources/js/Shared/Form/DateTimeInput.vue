@@ -15,7 +15,6 @@ import JetLabel from "@/Jetstream/Label";
 import JetInputError from "@/Jetstream/InputError";
 
 import flatpickr from "flatpickr";
-require('../../../css/flatpickr_blue.css')
 
 export default {
     props: ['id', 'value', 'label', 'name', 'errorMessage', 'submitting'],
@@ -80,3 +79,7 @@ export default {
     }
 }
 </script>
+
+<style scoped>
+@import "../../../css/flatpickr_blue.css";
+</style>
